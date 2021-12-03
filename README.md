@@ -1,6 +1,7 @@
 # pod-fluree-crypto
 
-This is a [Babashka]() [pod]() for the [fluree.crypto library]()
+This is a [Babashka](https://babashka.org) [pod](https://book.babashka.org/#pods)
+for the [fluree.crypto library](https://github.com/fluree/fluree.crypto)
 
 ## Building
 
