@@ -96,7 +96,7 @@
                       (debug "got :invoke")
                       (try
                         (let [response (invoke-fn id message)]
-                          (debug "responding with" (pr-str @describe-map))
+                          (debug "responding with" (pr-str response))
                           (write-bencode stdout response))
                         (catch Throwable e
                           (->> e (error-response id) (write-bencode stdout))))
