@@ -14,3 +14,5 @@ COPY --from=clojure /usr/local/lib/clojure /usr/local/lib/clojure
 
 RUN mkdir -p /pod-fluree-crypto
 WORKDIR /pod-fluree-crypto
+
+ENTRYPOINT ["make"]
