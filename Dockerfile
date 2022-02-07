@@ -7,7 +7,7 @@ ARG TARGETARCH
 # Oracle your yum repo is broke (last tested 2022-02-07 by WSM)
 RUN sed -i -e 's/enabled=1/enabled=0/' /etc/yum.repos.d/ol8_graalvm_community.repo
 
-RUN microdnf install git && microdnf clean all
+RUN microdnf install git make && microdnf clean all
 
 COPY --from=clojure /usr/local/bin/clojure /usr/local/bin/clojure
 COPY --from=clojure /usr/local/lib/clojure /usr/local/lib/clojure
