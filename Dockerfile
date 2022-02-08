@@ -13,4 +13,9 @@ COPY --from=clojure /usr/local/lib/clojure /usr/local/lib/clojure
 RUN mkdir -p /pod-fluree-crypto
 WORKDIR /pod-fluree-crypto
 
+COPY deps.edn .
+RUN clojure -A:native-image -P
+
+COPY . .
+
 ENTRYPOINT [""]
