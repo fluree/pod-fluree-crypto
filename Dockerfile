@@ -10,6 +10,8 @@ FROM ghcr.io/graalvm/graalvm-ce:ol8-java11-22.0.0.2 AS graalvm
 # https://github.com/graalvm/container/issues/49
 RUN gu install native-image
 
+ENV GRAALVM_HOME /usr
+
 RUN microdnf install git make findutils && microdnf clean all
 
 COPY --from=clojure /usr/local/bin/clojure /usr/local/bin/clojure
