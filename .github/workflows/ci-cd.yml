@@ -27,10 +27,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: localhost:5000/builder
+      - uses: actions/checkout@v2
       - name: Build linux/amd64 binary
         run: |
           docker run --platform=linux/amd64 -v ${{ github.workspace }}:/pod-fluree-crypto \
-            localhost:5000/builder ls -la
+            localhost:5000/builder make
       - uses: actions/upload-artifact@v2
         with:
           name: pod-fluree-crypto-linux-amd64
@@ -38,7 +39,7 @@ jobs:
       - name: Build linux/arm64 binary
         run: |
           docker run --platform=linux/arm64 -v ${{ github.workspace }}:/pod-fluree-crypto \
-            localhost:5000/builder ls -la
+            localhost:5000/builder make
       - uses: actions/upload-artifact@v2
         with:
           name: pod-fluree-crypto-linux-arm64
