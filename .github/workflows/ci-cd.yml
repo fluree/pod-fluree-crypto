@@ -31,8 +31,8 @@ jobs:
           tags: localhost:5000/builder
       - name: Build linux/amd64 binary
         run: |
-          docker run --platform=linux/amd64 localhost:5000/builder make
-          docker cp localhost:5000/builder:/pod-fluree-crypto/pod-fluree-crypto \
+          docker run --platform=linux/amd64 --name=pfc-linux-amd64 localhost:5000/builder make
+          docker cp pfc-linux-amd64:/pod-fluree-crypto/pod-fluree-crypto \
             ${{ github.workspace }}/pod-fluree-crypto-linux-amd64
       - uses: actions/upload-artifact@v2
         with:
@@ -40,8 +40,8 @@ jobs:
           path: ${{ github.workspace }}/pod-fluree-crypto-linux-amd64
       - name: Build linux/arm64 binary
         run: |
-          docker run --platform=linux/arm64 localhost:5000/builder make
-          docker cp localhost:5000/builder:/pod-fluree-crypto/pod-fluree-crypto \
+          docker run --platform=linux/arm64 --name=pfc-linux-arm64 localhost:5000/builder make
+          docker cp pfc-linux-arm64:/pod-fluree-crypto/pod-fluree-crypto \
             ${{ github.workspace }}/pod-fluree-crypto-linux-arm64
       - uses: actions/upload-artifact@v2
         with:
