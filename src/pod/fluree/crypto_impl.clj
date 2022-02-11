@@ -27,7 +27,7 @@
   (.flush out))
 
 (defn bytes->string [^bytes bs]
-  (String. bs))
+  (String. bs "UTF-8"))
 
 (defn podify-namespace
   ([ns] (podify-namespace ns *ns* nil))
