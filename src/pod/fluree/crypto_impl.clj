@@ -9,7 +9,7 @@
 
 (set! *warn-on-reflection* true)
 
-(def debug? true)
+(def debug? false)
 
 (defn debug [& msg]
   (when debug?
