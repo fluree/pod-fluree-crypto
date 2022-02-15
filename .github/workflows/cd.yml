@@ -17,17 +17,16 @@ jobs:
         with:
           path: artifacts
       - name: compress artifacts
-        working-directory: artifacts
         run: |
-          mv pod-fluree-crypto-linux-amd64 pod-fluree-crypto && \
-          zip pod-fluree-crypto-linux-amd64.zip pod-fluree-crypto && \
-          rm pod-fluree-crypto
-          mv pod-fluree-crypto-linux-arm64 pod-fluree-crypto && \
-          zip pod-fluree-crypto-linux-arm64.zip pod-fluree-crypto && \
-          rm pod-fluree-crypto
-          mv pod-fluree-crypto-macos-amd64 pod-fluree-crypto && \
-          zip pod-fluree-crypto-macos-amd64.zip pod-fluree-crypto && \
-          rm pod-fluree-crypto
+          mkdir linux-amd64
+          mv artifacts/pod-fluree-crypto-linux-amd64 linux-amd64/pod-fluree-crypto
+          mkdir linux-arm64
+          mv artifacts/pod-fluree-crypto-linux-arm64 linux-arm64/pod-fluree-crypto
+          mkdir macos-amd64
+          mv artifacts/pod-fluree-crypto-macos-amd64 macos-amd64/pod-fluree-crypto
+          zip -j artifacts/pod-fluree-crypto-linux-amd64.zip linux-amd64/*
+          zip -j artifacts/pod-fluree-crypto-linux-arm64.zip linux-arm64/*
+          zip -j artifacts/pod-fluree-crypto-macos-amd64.zip macos-amd64/*
       - uses: softprops/action-gh-release@v1
         with:
           files: |
