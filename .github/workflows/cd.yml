@@ -16,7 +16,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: artifacts
-      - run: ls -R artifacts
       - uses: softprops/action-gh-release@v1
         with:
-          files: artifacts/*
+          files: |
+            artifacts/**
