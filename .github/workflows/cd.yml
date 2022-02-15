@@ -11,7 +11,7 @@ jobs:
     name: Create new release
     steps:
       - uses: actions/checkout@v2
-      - uses: ./ci.yml
+      - uses: ./.github/workflows/ci.yml
       - uses: actions/download-artifact@v2
         with:
           path: artifacts
