@@ -55,7 +55,8 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: docker-images
-    - run: ls -R docker-images
+        path: ${{ github.workspace }}/docker-images
+    - run: ls -R ${{ github.workspace }}/docker-images
     - name: Build linux/arm64 binary
       run: |
         docker run --platform=linux/arm64 --name=pfc-linux-arm64 localhost:5000/builder make
@@ -81,6 +82,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: docker-images
+          path: ${{ github.workspace }}/docker-images
       - name: Build linux/amd64 binary
         run: |
           docker run --platform=linux/amd64 --name=pfc-linux-amd64 localhost:5000/builder make
