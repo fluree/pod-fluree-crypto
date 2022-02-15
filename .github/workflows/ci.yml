@@ -16,9 +16,11 @@ jobs:
         ports:
           - 5000:5000
         volumes:
-          - ./docker-images:/var/lib/registry
+          - ${{ github.workspace }}/docker-images:/var/lib/registry
     steps:
       - uses: actions/checkout@v2
+        with:
+          path: src
       - uses: docker/setup-qemu-action@v1
         with:
           platforms: arm64
@@ -28,15 +30,15 @@ jobs:
           driver-opts: network=host
       - uses: docker/build-push-action@v2
         with:
-          context: ${{ github.workspace }}
+          context: ${{ github.workspace }}/src
           platforms: linux/amd64,linux/arm64
           push: true
           tags: localhost:5000/builder
-      - run: ls -R docker-images
+      - run: ls -R ${{ github.workspace }}/docker-images
       - uses: actions/upload-artifact@v2
         with:
           name: docker-images
-          path: docker-images
+          path: ${{ github.workspace }}/docker-images
 
   linux-build-arm64:
     needs: [docker-builder]
@@ -48,7 +50,7 @@ jobs:
         ports:
           - 5000:5000
         volumes:
-          - ./docker-images:/var/lib/registry
+          - ${{ github.workspace }}/docker-images:/var/lib/registry
     steps:
     - uses: actions/download-artifact@v2
       with:
@@ -74,7 +76,7 @@ jobs:
         ports:
           - 5000:5000
         volumes:
-          - ./docker-images:/var/lib/registry
+          - ${{ github.workspace }}/docker-images:/var/lib/registry
     steps:
       - uses: actions/download-artifact@v2
         with:
