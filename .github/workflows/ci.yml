@@ -7,14 +7,16 @@ on:
   workflow_call:
 
 jobs:
-  linux-build:
+  docker-builder:
     runs-on: ubuntu-20.04
-    name: Build for linux amd64 & arm64
+    name: Build Docker builder image
     services:
       registry:
         image: registry:2
         ports:
           - 5000:5000
+        volumes:
+          - docker-images:/var/lib/registry
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -30,6 +32,41 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: localhost:5000/builder
+
+  linux-build-arm64:
+    needs: [docker-builder]
+    runs-on: ubuntu-20.04
+    name: Build for linux arm64
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+        volumes:
+          - docker-images:/var/lib/registry
+    steps:
+    - name: Build linux/arm64 binary
+      run: |
+        docker run --platform=linux/arm64 --name=pfc-linux-arm64 localhost:5000/builder make
+        docker cp pfc-linux-arm64:/pod-fluree-crypto/pod-fluree-crypto \
+          ${{ github.workspace }}/pod-fluree-crypto-linux-arm64
+    - uses: actions/upload-artifact@v2
+      with:
+        name: pod-fluree-crypto-linux-arm64
+        path: ${{ github.workspace }}/pod-fluree-crypto-linux-arm64
+
+  linux-build-amd64:
+    needs: [docker-builder]
+    runs-on: ubuntu-20.04
+    name: Build for linux amd64
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+        volumes:
+          - docker-images:/var/lib/registry
+    steps:
       - name: Build linux/amd64 binary
         run: |
           docker run --platform=linux/amd64 --name=pfc-linux-amd64 localhost:5000/builder make
@@ -39,17 +76,8 @@ jobs:
         with:
           name: pod-fluree-crypto-linux-amd64
           path: ${{ github.workspace }}/pod-fluree-crypto-linux-amd64
-      - name: Build linux/arm64 binary
-        run: |
-          docker run --platform=linux/arm64 --name=pfc-linux-arm64 localhost:5000/builder make
-          docker cp pfc-linux-arm64:/pod-fluree-crypto/pod-fluree-crypto \
-            ${{ github.workspace }}/pod-fluree-crypto-linux-arm64
-      - uses: actions/upload-artifact@v2
-        with:
-          name: pod-fluree-crypto-linux-arm64
-          path: ${{ github.workspace }}/pod-fluree-crypto-linux-arm64
 
-  macos-build:
+  macos-build-amd64:
     runs-on: macos-11
     name: Build for macOS amd64
     steps:
@@ -64,7 +92,9 @@ jobs:
         with:
           cli: 1.10.3.1075
       - name: build
-        run: make && mv pod-fluree-crypto pod-fluree-crypto-macos-amd64
+        run: |
+          make
+          mv pod-fluree-crypto pod-fluree-crypto-macos-amd64
       - uses: actions/upload-artifact@v2
         with:
           name: pod-fluree-crypto-macos-amd64
