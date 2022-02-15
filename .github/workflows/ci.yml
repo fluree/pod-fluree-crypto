@@ -64,8 +64,8 @@ jobs:
         with:
           cli: 1.10.3.1075
       - name: build
-        run: make
+        run: make && mv pod-fluree-crypto pod-fluree-crypto-macos-amd64
       - uses: actions/upload-artifact@v2
         with:
           name: pod-fluree-crypto-macos-amd64
-          path: ${{ github.workspace }}/pod-fluree-crypto
+          path: ${{ github.workspace }}/pod-fluree-crypto-macos-amd64
