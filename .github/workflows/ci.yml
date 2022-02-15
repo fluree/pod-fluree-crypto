@@ -32,6 +32,11 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: localhost:5000/builder
+      - run: ls -R docker-images
+      - uses: actions/upload-artifact@v2
+        with:
+          name: docker-images
+          path: docker-images
 
   linux-build-arm64:
     needs: [docker-builder]
@@ -45,6 +50,10 @@ jobs:
         volumes:
           - docker-images:/var/lib/registry
     steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: docker-images
+    - run: ls -R docker-images
     - name: Build linux/arm64 binary
       run: |
         docker run --platform=linux/arm64 --name=pfc-linux-arm64 localhost:5000/builder make
@@ -67,6 +76,9 @@ jobs:
         volumes:
           - docker-images:/var/lib/registry
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: docker-images
       - name: Build linux/amd64 binary
         run: |
           docker run --platform=linux/amd64 --name=pfc-linux-amd64 localhost:5000/builder make
