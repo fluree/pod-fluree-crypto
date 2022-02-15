@@ -1,9 +1,10 @@
-name: CD
+name: CI
 
 on:
   push:
     branches:
       - main
+  workflow_call:
 
 jobs:
   linux-build:
