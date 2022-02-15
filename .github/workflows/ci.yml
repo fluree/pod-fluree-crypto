@@ -16,7 +16,7 @@ jobs:
         ports:
           - 5000:5000
         volumes:
-          - docker-images:/var/lib/registry
+          - ./docker-images:/var/lib/registry
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -48,7 +48,7 @@ jobs:
         ports:
           - 5000:5000
         volumes:
-          - docker-images:/var/lib/registry
+          - ./docker-images:/var/lib/registry
     steps:
     - uses: actions/download-artifact@v2
       with:
@@ -74,7 +74,7 @@ jobs:
         ports:
           - 5000:5000
         volumes:
-          - docker-images:/var/lib/registry
+          - ./docker-images:/var/lib/registry
     steps:
       - uses: actions/download-artifact@v2
         with:
