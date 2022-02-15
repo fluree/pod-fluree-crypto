@@ -9,6 +9,7 @@ jobs:
   build-release:
     uses: ./.github/workflows/ci.yml
   create-release:
+    needs: [build-release]
     runs-on: ubuntu-20.04
     name: Create new release
     steps:
