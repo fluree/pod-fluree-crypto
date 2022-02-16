@@ -13,7 +13,7 @@ jobs:
       matrix:
         arch: [amd64, arm64]
     runs-on: ubuntu-20.04
-    name: Build Linux binaries
+    name: Build Linux binary
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -29,6 +29,7 @@ jobs:
           context: ${{ github.workspace }}
           platforms: linux/${{ matrix.arch }}
           push: false
+          load: true
           tags: builder
       - name: Build linux/${{ matrix.arch }} binary
         run: |
