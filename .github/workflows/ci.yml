@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    tags-ignore:
-      - '!v[0-9]+.[0-9]+.[0-9]+' # these will trigger this w/ workflow_call
     branches:
       - main
+    tags-ignore:
+      - 'v[0-9]+.[0-9]+.[0-9]+' # these will trigger this w/ workflow_call
   workflow_call:
 
 jobs:
