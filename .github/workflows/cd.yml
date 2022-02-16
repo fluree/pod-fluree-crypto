@@ -16,6 +16,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: artifacts
+      - run: |
+          apt-get update && apt-get install -y tree
+      - run: tree
       - name: compress artifacts
         run: |
           mkdir linux-amd64
