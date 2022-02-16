@@ -9,29 +9,24 @@ jobs:
   build-release:
     uses: ./.github/workflows/ci.yml
   create-release:
-    needs: [build-release]
+    needs: build-release
     runs-on: ubuntu-20.04
     name: Create new release
     steps:
       - uses: actions/download-artifact@v2
         with:
           path: artifacts
-      - name: Show FS contents
-        run: ls -R
       - name: compress artifacts
         run: |
           mkdir linux-amd64
           mv artifacts/pod-fluree-crypto-linux-amd64/pod-fluree-crypto-linux-amd64 linux-amd64/pod-fluree-crypto
-          ls -R
-          # mkdir linux-arm64
-          # mv artifacts/pod-fluree-crypto-linux-arm64/pod-fluree-crypto-linux-arm64 linux-arm64/pod-fluree-crypto
+          mkdir linux-arm64
+          mv artifacts/pod-fluree-crypto-linux-arm64/pod-fluree-crypto-linux-arm64 linux-arm64/pod-fluree-crypto
           mkdir macos-amd64
           mv artifacts/pod-fluree-crypto-macos-amd64/pod-fluree-crypto-macos-amd64 macos-amd64/pod-fluree-crypto
-          ls -R
           zip -j artifacts/pod-fluree-crypto-linux-amd64.zip linux-amd64/*
-          # zip -j artifacts/pod-fluree-crypto-linux-arm64.zip linux-arm64/*
+          zip -j artifacts/pod-fluree-crypto-linux-arm64.zip linux-arm64/*
           zip -j artifacts/pod-fluree-crypto-macos-amd64.zip macos-amd64/*
-          ls -R
       - uses: softprops/action-gh-release@v1
         with:
           files: |
