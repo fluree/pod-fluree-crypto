@@ -36,10 +36,10 @@ jobs:
             --name=pfc-linux-${{ matrix.arch }} builder make
           docker cp pfc-linux-${{ matrix.arch }}:/pod-fluree-crypto/pod-fluree-crypto \
             ${{ github.workspace }}/pod-fluree-crypto-linux-${{ matrix.arch }}
-    - uses: actions/upload-artifact@v2
-      with:
-        name: pod-fluree-crypto-linux-${{ matrix.arch }}
-        path: ${{ github.workspace }}/pod-fluree-crypto-linux-${{ matrix.arch }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: pod-fluree-crypto-linux-${{ matrix.arch }}
+          path: ${{ github.workspace }}/pod-fluree-crypto-linux-${{ matrix.arch }}
 
   macos-build-amd64:
     runs-on: macos-11
