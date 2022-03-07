@@ -1,19 +1,6 @@
-FROM clojure:tools-deps-1.10.3.1075-slim-bullseye AS clojure
+FROM clojure:tools-deps-1.10.3.1087-slim-bullseye AS clojure
 
-FROM ghcr.io/graalvm/graalvm-ce:ol8-java11-22.0.0.2 AS graalvm
-
-# Oracle your yum repo is broke (last tested 2022-02-07 by WSM)
-# only exists in native-image image
-#RUN rm /etc/yum.repos.d/ol8_graalvm_community.repo
-
-# Why the hell isn't Oracle setting these already???!!
-# No big deal dudes except nothing works w/o them...
-ENV GRAALVM_HOME=/opt/graalvm-ce-java11-22.0.0.2
-ENV JAVA_HOME=/opt/graalvm-ce-java11-22.0.0.2
-
-# can't use the official native-image image until they fix this:
-# https://github.com/graalvm/container/issues/49
-RUN gu install native-image
+FROM ghcr.io/graalvm/native-image:ol8-java11-22.0.0.2 AS graalvm
 
 RUN microdnf install git make findutils && microdnf clean all
 
