@@ -57,7 +57,7 @@ jobs:
           github-token: ${{ github.token }}
       - uses: DeLaGuardo/setup-clojure@3.7
         with:
-          cli: 1.10.3.1075
+          cli: 1.10.3.1087
       - name: build
         run: |
           make
