@@ -16,3 +16,5 @@ RUN clojure -A:native-image -P
 COPY . .
 
 ENTRYPOINT [""]
+
+CMD ["make"]
