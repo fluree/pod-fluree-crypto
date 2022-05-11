@@ -1,11 +1,11 @@
-{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
+{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
         com.fluree/crypto   {:mvn/version "0.3.9"}
         nrepl/bencode       {:mvn/version "1.1.0"}}
  :aliases
  {:pod      {:main-opts ["-m" "pod.fluree.crypto-impl"]}
   :pod-repl {:extra-deps {babashka/babashka.pods
                           {:git/url "https://github.com/babashka/pods.git"
-                           :sha     "538fc6f4147badf3a457b3eb8f9f95dd3bc947b1"}}}
+                           :sha     "c2d6ba847c53b1f6b7986b166a8a4d7dda97db83"}}}
   :native-image
   {:main-opts ["-m" "clj.native-image" "pod.fluree.crypto-impl"
                "-H:Name=pod-fluree-crypto"
