@@ -7,9 +7,7 @@ for the [fluree.crypto library](https://github.com/fluree/fluree.crypto)
 
 Pods are built as native binaries for their respective platforms, so this uses
 GraalVM native-image. You need to install a Graal JDK and the native-image tool
-and then run in this repo:
-
-`clojure -M:native-image`
+and then run `make` in this repo.
 
 This should produce a binary named `pod-fluree-crypto` for your platform in the
 project root.
@@ -26,7 +24,7 @@ project root.
 
 ## License
 
-Copyright (c) 2021 Fluree, PBC
+Copyright (c) 2021-2022 Fluree, PBC
 
 This program and the accompanying materials are made
 available under the terms of the Eclipse Public License 2.0
