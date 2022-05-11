@@ -1,0 +1,8 @@
+.git/
+./pod-fluree-crypto
+.clj-kondo/
+.cpcache/
+.github/
+.idea/
+.lsp/
+.nrepl-port
