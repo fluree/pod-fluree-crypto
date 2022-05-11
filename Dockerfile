@@ -1,6 +1,6 @@
-FROM clojure:tools-deps-1.10.3.1087-slim-bullseye AS clojure
+FROM clojure:openjdk-11-tools-deps-1.11.1.1113-slim-bullseye AS clojure
 
-FROM ghcr.io/graalvm/native-image:ol8-java11-22.0.0.2 AS graalvm
+FROM ghcr.io/graalvm/native-image:ol8-java11-22.1.0 AS graalvm
 
 RUN microdnf install git make findutils && microdnf clean all
 
