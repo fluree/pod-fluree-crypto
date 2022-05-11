@@ -6,4 +6,5 @@ pod-fluree-crypto: $(SOURCES) deps.edn
 .PHONY: clean
 
 clean:
-	rm pod-fluree-crypto
+	rm -f pod-fluree-crypto
+	rm -rf classes
