@@ -1,5 +1,5 @@
 {:deps {org.clojure/clojure {:mvn/version "1.10.3"}
-        com.fluree/crypto   {:mvn/version "0.3.8"}
+        com.fluree/crypto   {:mvn/version "0.3.9"}
         nrepl/bencode       {:mvn/version "1.1.0"}}
  :aliases
  {:pod      {:main-opts ["-m" "pod.fluree.crypto-impl"]}
